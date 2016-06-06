@@ -3,7 +3,7 @@
 System.register(['aurelia-framework', 'aurelia-fetch-client'], function (_export, _context) {
     "use strict";
 
-    var inject, HttpClient, json, _dec, _class, AureliaFetchExtensions;
+    var inject, HttpClient, json, _dec, _class, Fetch;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -19,19 +19,19 @@ System.register(['aurelia-framework', 'aurelia-fetch-client'], function (_export
             json = _aureliaFetchClient.json;
         }],
         execute: function () {
-            _export('AureliaFetchExtensions', AureliaFetchExtensions = (_dec = inject(HttpClient), _dec(_class = function () {
-                function AureliaFetchExtensions() {
-                    _classCallCheck(this, AureliaFetchExtensions);
-                }
+            _export('Fetch', Fetch = (_dec = inject(HttpClient), _dec(_class = function () {
+                function Fetch(HttpClient) {
+                    _classCallCheck(this, Fetch);
 
-                AureliaFetchExtensions.constructor = function constructor(HttpClient) {
                     HttpClient.prototype.get = function () {
                         var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
 
                         return this.fetch('/' + id);
                     };
 
-                    HttpClient.prototype.getJson = function (id) {
+                    HttpClient.prototype.getJson = function () {
+                        var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
+
                         return this.fetch('/' + id).then(function (response) {
                             return response.json();
                         });
@@ -56,12 +56,38 @@ System.register(['aurelia-framework', 'aurelia-fetch-client'], function (_export
                             method: 'delete'
                         });
                     };
+
+                    this.HttpClient = HttpClient;
+                }
+
+                Fetch.prototype.get = function get() {
+                    var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
+
+                    return this.HttpClient.get(id);
                 };
 
-                return AureliaFetchExtensions;
+                Fetch.prototype.getJson = function getJson() {
+                    var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
+
+                    return this.HttpClient.getJson(id);
+                };
+
+                Fetch.prototype.post = function post(content) {
+                    return this.HttpClient.post(content);
+                };
+
+                Fetch.prototype.put = function put(id, content) {
+                    return this.HttpClient.put(id, content);
+                };
+
+                Fetch.prototype.delete = function _delete(id) {
+                    return this.HttpClient.delete(id);
+                };
+
+                return Fetch;
             }()) || _class));
 
-            _export('AureliaFetchExtensions', AureliaFetchExtensions);
+            _export('Fetch', Fetch);
         }
     };
 });
