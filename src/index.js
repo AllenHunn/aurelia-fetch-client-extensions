@@ -1,3 +1,3 @@
 export function configure(config) {
-    config.globalResources('./aurelia-fetch-client');
+    config.globalResources('./aurelia-fetch-client-extensions');
 }
