@@ -4,7 +4,7 @@ define(['exports', 'aurelia-framework', 'aurelia-fetch-client'], function (expor
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.Fetch = undefined;
+    exports.AureliaFetchExtensions = undefined;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -14,19 +14,19 @@ define(['exports', 'aurelia-framework', 'aurelia-fetch-client'], function (expor
 
     var _dec, _class;
 
-    var Fetch = exports.Fetch = (_dec = (0, _aureliaFramework.inject)(_aureliaFetchClient.HttpClient), _dec(_class = function () {
-        function Fetch(HttpClient) {
-            _classCallCheck(this, Fetch);
+    var AureliaFetchExtensions = exports.AureliaFetchExtensions = (_dec = (0, _aureliaFramework.inject)(_aureliaFetchClient.HttpClient), _dec(_class = function () {
+        function AureliaFetchExtensions() {
+            _classCallCheck(this, AureliaFetchExtensions);
+        }
 
+        AureliaFetchExtensions.constructor = function constructor(HttpClient) {
             HttpClient.prototype.get = function () {
                 var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
 
                 return this.fetch('/' + id);
             };
 
-            HttpClient.prototype.getJson = function () {
-                var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
-
+            HttpClient.prototype.getJson = function (id) {
                 return this.fetch('/' + id).then(function (response) {
                     return response.json();
                 });
@@ -51,34 +51,8 @@ define(['exports', 'aurelia-framework', 'aurelia-fetch-client'], function (expor
                     method: 'delete'
                 });
             };
-
-            this.HttpClient = HttpClient;
-        }
-
-        Fetch.prototype.get = function get() {
-            var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
-
-            return this.HttpClient.get(id);
         };
 
-        Fetch.prototype.getJson = function getJson() {
-            var id = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
-
-            return this.HttpClient.getJson(id);
-        };
-
-        Fetch.prototype.post = function post(content) {
-            return this.HttpClient.post(content);
-        };
-
-        Fetch.prototype.put = function put(id, content) {
-            return this.HttpClient.put(id, content);
-        };
-
-        Fetch.prototype.delete = function _delete(id) {
-            return this.HttpClient.delete(id);
-        };
-
-        return Fetch;
+        return AureliaFetchExtensions;
     }()) || _class);
 });
